@@ -18,6 +18,11 @@ export default function Signin() {
   const handleSubmit = async()=>{
     console.log("Login Data : ",formData)
 
+    if (!formData.email) {
+      alert("Please Enter Password")
+      return null;
+    }
+
     if (!formData.password) {
       alert("Please Enter Password")
       return null;
@@ -26,7 +31,9 @@ export default function Signin() {
 
     try{
       setIsLoading(()=>true)
-      const res =  await axios.post(`${VITE_BACKEND_URL}/login`,formData)
+      console.log("import.meta.VITE_BACKEND_URL",import.meta.VITE_BACKEND_URL)
+console.log("VITE_BACKEND_URL-->", import.meta.env.VITE_BACKEND_URL);
+      const res =  await axios.post(`${import.meta.env.VITE_BACKEND_URL}/login`,formData)
       console.log("Signin response: ",res?.data)  
       if(res.data?.success){
         alert("User Signup successful!")

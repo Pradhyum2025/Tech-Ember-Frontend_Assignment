@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useState } from 'react'
 
 export default function Signup() {
@@ -17,29 +18,31 @@ export default function Signup() {
 
   const handleSubmit = async () => {
 
-    if (formData.email) {
-      alert("Please Enter Mail")
+    if (!formData.password) {
+      alert("Please Enter Password")
       return null;
     }
-
-    if (formData.password) {
+    if (!formData.email) {
       alert("Please Enter Password")
       return null;
     }
 
-    if (formData.fullName) {
+    if (!formData.fullName) {
       alert("Please Enter Full Name")
       return null;
     }
 
-    if(formData.password !=setFormData.confirmPassword){
+    if(formData.password !==formData.confirmPassword){
       alert("Please Make sure password and confirm password both same")
       return null;
     }
     
     try {
        setIsLoading(()=>true)
-      const res = await axios.post(`${VITE_BACKEND_URL}/signup`,formData)
+
+       console.log("import.meta.VITE_BACKEND_URL --->",import.meta.VITE_BACKEND_URL)
+      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/signup`,formData)
+
       console.log("Signin response: ", res?.data)
       if (res.data?.success) {
         alert("User Signup successful!")
