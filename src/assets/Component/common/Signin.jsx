@@ -8,15 +8,15 @@ export default function Signin() {
     password: ""
   })
 
-  const [isLoading,setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleOnClick =(e)=>{
-    const {value,name} =e.target;
-    setFormData((prev)=>({...prev,[name]:value}))
+  const handleOnClick = (e) => {
+    const { value, name } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }))
   }
 
-  const handleSubmit = async()=>{
-    console.log("Login Data : ",formData)
+  const handleSubmit = async () => {
+    console.log("Login Data : ", formData)
 
     if (!formData.email) {
       alert("Please Enter Password")
@@ -29,21 +29,25 @@ export default function Signin() {
     }
 
 
-    try{
-      setIsLoading(()=>true)
-      console.log("import.meta.VITE_BACKEND_URL",import.meta.VITE_BACKEND_URL)
-console.log("VITE_BACKEND_URL-->", import.meta.env.VITE_BACKEND_URL);
-      const res =  await axios.post(`${import.meta.env.VITE_BACKEND_URL}/login`,formData)
-      console.log("Signin response: ",res?.data)  
-      if(res.data?.success){
+    try {
+      setIsLoading(() => true)
+      // console.log("import.meta.VITE_BACKEND_URL",import.meta.VITE_BACKEND_URL)
+      console.log("VITE_BACKEND_URL-->", import.meta.env.VITE_BACKEND_URL);
+      const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/login`, formData)
+
+      console.log("Signin response: ", res)
+
+      console.log("Signin response: ", res?.data)
+
+      if (res.data?.success) {
         alert("User Signup successful!")
       }
-    }catch(error){
+    } catch (error) {
       console.log("Erorr while signin :", error?.message || error)
-    }finally{
-    setIsLoading(()=>false)
+    } finally {
+      setIsLoading(() => false)
     }
-    
+
   }
 
   return (
@@ -56,12 +60,12 @@ console.log("VITE_BACKEND_URL-->", import.meta.env.VITE_BACKEND_URL);
           <label
             className='text-start text-gray-800 font-semibold text-sm' htmlFor="email">Email</label>
           <input
-            className='h-8 border-3 rounded-md ring-3 ring-indigo-400 outline-0 outline-offset-0 ring-offset-0 focus:ring-indigo-600 border-gray-200 py-4 px-2 font-semibold text-md' 
-            name='email' 
+            className='h-8 border-3 rounded-md ring-3 ring-indigo-400 outline-0 outline-offset-0 ring-offset-0 focus:ring-indigo-600 border-gray-200 py-4 px-2 font-semibold text-md'
+            name='email'
             type="email"
             value={formData.email}
             onChange={handleOnClick}
-             />
+          />
         </div>
 
         {/* password */}
@@ -74,15 +78,15 @@ console.log("VITE_BACKEND_URL-->", import.meta.env.VITE_BACKEND_URL);
         </div>
 
         {/* button */}
-        <button 
-        type='submit'
-        onClick={(e)=>{
-        e.preventDefault();
-        handleSubmit();
-      }}
-          
-        className='bg-indigo-600 px-4 py-1 rounded-md text-md font-bold text-white transition ease-out duration-150 delay-150 hover:scale-[1.1] cursor-pointer mt-5'>
-          {isLoading?"Loging..":"Login"}
+        <button
+          type='submit'
+          onClick={(e) => {
+            e.preventDefault();
+            handleSubmit();
+          }}
+
+          className='bg-indigo-600 px-4 py-1 rounded-md text-md font-bold text-white transition ease-out duration-150 delay-150 hover:scale-[1.1] cursor-pointer mt-5'>
+          {isLoading ? "Loging.." : "Login"}
         </button>
 
       </form>
