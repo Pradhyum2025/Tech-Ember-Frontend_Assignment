@@ -40,8 +40,9 @@ export default function Signup() {
     try {
        setIsLoading(()=>true)
 
-       console.log("import.meta.VITE_BACKEND_URL --->",import.meta.VITE_BACKEND_URL)
+       console.log("import.meta.VITE_BACKEND_URL --->",import.meta.env.VITE_BACKEND_URL)
       const res = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/signup`,formData)
+      
       console.log("Signin response: ", res)
 
       console.log("Signin response: ", res?.data)
